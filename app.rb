@@ -23,8 +23,8 @@ class UnixTime < Sinatra::Base
           date = Chronic.parse(params[:value])
         end
         if date.to_i > 0
-          if params[:localtime]
-            date = date.localtime(params[:localtime])
+          if params[:offset]
+            date = date.localtime(params[:offset])
           end
           response[:unixtime] = date.to_i
           response[:date] = date.to_s

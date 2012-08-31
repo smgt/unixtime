@@ -11,7 +11,7 @@
   }
   input.focus()
   form.submit(function() {
-    $.getJSON("/date", {value: input[0].value, localtime: offset}, function(data) {
+    $.getJSON("/date", {value: input[0].value, offset: offset}, function(data) {
       if(data.error) {
         $('#result').html($('<span class="error">'+data.error+'</span>'))
       } else {
