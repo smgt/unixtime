@@ -16,13 +16,16 @@ class UnixTime < Sinatra::Base
   get "/date" do
     response = Hash.new
     begin
-      if params[:value]
+      if params[:value] && params[:value] != ""
         if /^\d+$/.match( params[:value] )
           date = Time.at(params[:value].to_i)
         elsif
           date = Chronic.parse(params[:value])
         end
         if date.to_i > 0
+          if params[:localtime]
+            date = date.localtime(params[:localtime])
+          end
           response[:unixtime] = date.to_i
           response[:date] = date.to_s
         else
