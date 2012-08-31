@@ -42,12 +42,20 @@
   form.submit(function() {
 
     var d = new Date()
-    var hoursOffset = (d.getTimezoneOffset()/60).toString();
+    var hoursOffset = -(d.getTimezoneOffset()/60);
+    var offsetDir = ""
 
-    if (hoursOffset.length === 2) {
-      offset = hoursOffset.charAt(0)+"0"+hoursOffset.charAt(1)+":00"
-    } else if(hoursOffset.length === 3) {
-      offset = hoursOffset+":00"
+    if(hoursOffset > 0) {
+      offsetDir = "+"
+    } else {
+      offsetDir = "-"
+      hoursOffset = -1*hoursOffset
+    }
+
+    if ((hoursOffset > 9) || (hoursOffset < -9)) {
+      offset = offsetDir+hoursOffset.toString()+":00"
+    } else {
+      offset = offsetDir+"0"+hoursOffset.toString()+":00"
     }
 
     getDate(input[0].value, offset)

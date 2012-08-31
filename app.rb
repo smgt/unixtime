@@ -18,9 +18,9 @@ class UnixTime < Sinatra::Base
     begin
       if params[:value] && params[:value] != ""
         if /^\d+$/.match( params[:value] )
-          date = Time.at(params[:value].to_i)
+          date = Time.at(params[:value].to_i).utc
         elsif
-          date = Chronic.parse(params[:value])
+          date = Chronic.parse(params[:value]).utc
         end
         if date.to_i > 0
           if params[:offset]
